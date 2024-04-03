@@ -1,4 +1,4 @@
-function PosteriorAnterior(clientes) {
+export async function PosteriorAnterior(clientes) {
   for (let i = 0; i < clientes.length - 1; i++) {
     let clienteActual = clientes[i];
     let clienteSiguiente = clientes[i + 1];

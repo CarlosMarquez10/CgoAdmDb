@@ -1,7 +1,7 @@
 let dataExcelArray = [];
 
-export function CreateObject(data) {
-  dataExcelArray = data.map(cliente => ({
+export async function CreateObject(data) {
+  dataExcelArray = data.map((cliente) => ({
     Cliente: cliente.ClienteId,
     Nombre: cliente.Nombre,
     EstadoCliente: cliente.DEstadoCliente,
@@ -17,13 +17,14 @@ export function CreateObject(data) {
     TelefonoCelular: cliente.TelefonoCelular,
     TelefonoContacto: cliente.TelefonoContacto,
     DMedidor: cliente.Medidor,
-    Medidor: '',
-    Facturacion: '',
-    Latitud: '',
-    Longitud: '',
-    Posterior: '',
-    Anterior: '',
+    Medidor: "",
+    Facturacion: "",
+    Latitud: "",
+    Longitud: "",
+    Posterior: "",
+    Anterior: "",
   }));
 
+  console.log("Objeto array creado");
   return dataExcelArray;
 }
