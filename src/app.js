@@ -8,9 +8,24 @@ import { CreateObject } from "./controller/crearObjeto.js";
 import { exportarArrayAExcel } from "./controller/crearExcel.js";
 import { ordenarArray } from "./controller/ordenar.js";
 import { PosteriorAnterior } from "./controller/ant_post.js";
-import { datosConGps } from "./controller/filterGps.js"; const dataGps = await datosConGps(agregarmedidor, datosCoordenadas);
+import { datosConGps } from "./controller/filterGps.js";
+import { separarString } from "./controller/medidor.js";
+import { CampVacioFacturacion } from "./controller/validarcampos.js";
+import {tipoFacturacion} from './controller/filterFactura.js'
 
-  // crear el excel
+// crear el excel
+
+export async function main() {
+  const creardata = await leerExcelRegional();
+  let datosCoordenadas = await leerExcelGps();
+  const datosordenados = await CreateObject(creardata);
+  const ordenados = await ordenarArray(datosordenados, "Ciclo", "RutaLectura");
+  const antPost = await PosteriorAnterior(ordenados);
+  const dataconMedidor = await separarString(antPost);
+  const tipofacturacion = await tipoFacturacion(dataconMedidor)
+  const validarcampos = await CampVacioFacturacion(tipofacturacion);
+  const dataGps = await datosConGps(validarcampos, datosCoordenadas); // VALIDAR POR QUE NO ESTA GUARDANDO EL ARRAY
+
   await exportarArrayAExcel(dataGps, "datosPreparados.xlsx");
 }
 

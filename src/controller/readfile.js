@@ -7,7 +7,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 
 export async function leerExcelRegional() {
   // Ruta del archivo Excel
-  const excelPath = path.join(__dirname, "../../data/OTROS.xlsx");
+  const excelPath = path.join(__dirname, "../../data/2000.xlsx");
 
   // Leer el archivo
   const workbook = XLSX.readFile(excelPath);

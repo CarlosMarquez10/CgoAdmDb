@@ -1,22 +1,23 @@
 export async function PosteriorAnterior(clientes) {
   for (let i = 0; i < clientes.length - 1; i++) {
     let clienteActual = clientes[i];
+    let clienteAnterior = clientes[i-1]
     let clienteSiguiente = clientes[i + 1];
 
-    if (
-      clienteSiguiente.RutaLectura > clienteActual.RutaLectura &&
-      clienteSiguiente.Ciclo === clienteActual.Ciclo
-    ) {
-      clienteActual.Posterior = clienteSiguiente.Cliente;
-      clienteSiguiente.Anterior = clienteActual.Cliente;
+    if ( clienteAnterior === ''){
+      clienteActual.Anterior = clienteActual.Cliente;
     }
 
-    if (
-      clienteSiguiente.RutaLectura > clienteActual.RutaLectura &&
-      clienteSiguiente.Ciclo !== clienteActual.Ciclo
-    ) {
+    if ( clienteSiguiente === ''){
       clienteActual.Posterior = clienteActual.Cliente;
-      clienteSiguiente.Posterior = clienteSiguiente.Cliente;
+    }
+
+    if(clienteActual.Ciclo === clienteAnterior.Ciclo && clienteActual.RutaLectura > clienteAnterior.RutaLectura){
+      clienteActual.Anterior = clienteAnterior.Cliente;
+    }
+
+    if(clienteActual.Ciclo === clienteSiguiente.Ciclo && clienteActual.RutaLectura < clienteAnterior.RutaLectura){
+      clienteActual.Posterior = clienteSiguiente.Cliente;
     }
   }
   return clientes;
